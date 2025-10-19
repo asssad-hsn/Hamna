@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Surprise</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* your existing styles stay the same — I’m keeping them */
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+    animation: bgGradient 10s ease infinite alternate;
+}
+
+@keyframes bgGradient {
+    0% { background: linear-gradient(135deg, #fbc2eb, #a6c1ee);}
+    50% { background: linear-gradient(135deg, #ffecd2, #fcb69f);}
+    100% { background: linear-gradient(135deg, #f6d365, #fda085);}
+}
+
+#homeContainer {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+h1 {
+    font-size: 60px;
+    color: #fff;
+    text-shadow: 2px 2px 10px #ff6f61;
+    animation: fadeInText 2s ease forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInText {
+    to { opacity: 1; }
+}
+
+button {
+    padding: 20px 40px;
+    font-size: 22px;
+    background: #fff;
+    color: #ff6f61;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-top: 30px;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-15px); }
+    60% { transform: translateY(-7px); }
+}
+
+/* Balloons */
+.balloon {
+    position: absolute;
+    width: 40px;
+    height: 60px;
+    background: radial-gradient(circle at 30% 30%, #ff4b5c, #ff6f61);
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: floatBalloon linear infinite;
+}
+
+@keyframes floatBalloon {
+    0% { transform: translateY(100vh); }
+    100% { transform: translateY(-100vh); }
+}
+
+/* Confetti */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: hsl(0,100%,50%);
+    opacity: 0.8;
+    pointer-events: none;
+    animation: fall 3s linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-10px) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(360deg); }
+}
+</style>
+</head>
+<body>
+<div id="homeContainer" class="container">
+    <h1>🎉 Birthday Chutki 🎉</h1>
+    <button onclick="askPassword()">Open Your Surprise</button>
+</div>
+
+<script>
+// Floating balloons
+function createBalloon() {
+    const balloon = document.createElement('div');
+    balloon.className = 'balloon';
+    balloon.style.left = Math.random() * window.innerWidth + 'px';
+    balloon.style.animationDuration = (Math.random() * 5 + 5) + 's';
+    document.body.appendChild(balloon);
+    setTimeout(() => balloon.remove(), 10000);
+}
+setInterval(createBalloon, 400);
+
+// Confetti
+function createConfetti() {
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti';
+    confetti.style.left = Math.random() * window.innerWidth + 'px';
+    confetti.style.background = `hsl(${Math.random()*360},100%,50%)`;
+    confetti.style.animationDuration = (Math.random()*2+3) + 's';
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 3000);
+}
+setInterval(createConfetti, 150);
+
+// Password protection
+function askPassword() {
+    let pass = prompt("Enter the secret password to unlock your surprise ❤️");
+    if(pass === "junior"){   // <--- change this password if you like
+        window.location.href = "wish.html";
+    } else if(pass) {
+        alert("Oops! Wrong password 😅");
+    }
+}
+</script>
+</body>
+</html>

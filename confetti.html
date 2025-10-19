@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Party Time!</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body {
+    margin:0;
+    overflow:hidden;
+    font-family:'Arial', sans-serif;
+    text-align:center;
+    height:100vh;
+    background: linear-gradient(135deg, #ffecd2, #fcb69f);
+    animation:bgGradient 12s ease infinite alternate;
+}
+
+@keyframes bgGradient{
+    0% {background: linear-gradient(135deg, #ffecd2, #fcb69f);}
+    50% {background: linear-gradient(135deg, #f6d365, #fda085);}
+    100% {background: linear-gradient(135deg, #fbc2eb, #a6c1ee);}
+}
+
+#confettiContainer {
+    position: relative;
+    top:50%;
+    transform: translateY(-50%);
+    z-index:10;
+}
+
+h1 {
+    font-size: 60px;
+    color: #fff;
+    text-shadow: 0 0 20px #ff6f61, 0 0 30px #fda085;
+    animation: shimmer 2s infinite alternate;
+}
+
+@keyframes shimmer {
+    0% { text-shadow: 0 0 10px #fff,0 0 20px #ff6f61, 0 0 30px #fda085; }
+    100% { text-shadow: 0 0 20px #fff,0 0 30px #ff6f61,0 0 40px #fda085; }
+}
+
+p {
+    font-size: 25px;
+    color:#fff;
+    text-shadow: 1px 1px 5px #ff6f61;
+    margin:20px 0;
+}
+
+button {
+    padding: 20px 40px;
+    font-size:22px;
+    background: #fff;
+    color:#ff6f61;
+    border:none;
+    border-radius:15px;
+    cursor:pointer;
+    margin-top:30px;
+    box-shadow: 0 0 20px #fff;
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 40px #fff;
+}
+
+/* Floating hearts */
+.hearts { position:absolute; width:20px; height:20px; background:red; transform:rotate(-45deg); animation: float 4s infinite; opacity:0.8;}
+.hearts::before, .hearts::after { content:""; position:absolute; width:20px; height:20px; background:red; border-radius:50%;}
+.hearts::before { top:-10px; left:0;} .hearts::after{ left:10px; top:0;}
+@keyframes float{0%{transform:translateY(0) rotate(-45deg); opacity:1;}100%{transform:translateY(-700px) rotate(-45deg); opacity:0;}}
+
+/* Confetti */
+.confetti {
+    position:absolute;
+    width:12px;
+    height:12px;
+    background: hsl(0,100%,50%);
+    opacity:0.9;
+    pointer-events:none;
+    animation: fall 3s linear infinite;
+    border-radius:3px;
+}
+@keyframes fall{
+    0%{transform: translateY(-10px) rotate(0deg);}
+    100%{transform: translateY(100vh) rotate(360deg);}
+}
+
+/* Balloons */
+.balloon {
+    position:absolute;
+    width:50px;
+    height:70px;
+    background: radial-gradient(circle at 30% 30%, #ff4b5c, #ff6f61);
+    border-radius:50%;
+    opacity:0.9;
+    animation: floatBalloon linear infinite;
+}
+@keyframes floatBalloon{0%{transform:translateY(100vh);}100%{transform:translateY(-100vh);}}
+</style>
+</head>
+<body>
+
+<div id="confettiContainer" class="container">
+    <h1>🎉 Happy Birthday Chutki! 🎉</h1>
+    <p>Wishing you endless joy, love, and laughter! <br>
+     Jo bh hai hain tou ap meri dost lekn baat nhi maanti <br>
+     Wo alag bat hai khair chorain is baat koo <br>
+     Baki late wish krny k liyeee mazrat <br>
+     Aagr mujhy tab pehly pta hota tou achy se <br> 
+     he wish krna tha mainy </p>
+    
+
+    <button onclick="location.href='gallery.html'">See Memories 📸</button>
+</div>
+
+<script src="script.js" defer></script>
+<script>
+// Hearts animation
+function createHeart(){
+    const heart=document.createElement('div');
+    heart.className='hearts';
+    heart.style.left=Math.random()*window.innerWidth+'px';
+    heart.style.animationDuration=(Math.random()*3+3)+'s';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),5000);
+}
+setInterval(createHeart,400);
+
+// Confetti animation
+function createConfetti() {
+    const confetti = document.createElement('div');
+    confetti.className='confetti';
+    confetti.style.left=Math.random()*window.innerWidth+'px';
+    confetti.style.background=`hsl(${Math.random()*360},100%,50%)`;
+    confetti.style.animationDuration=(Math.random()*2+3)+'s';
+    document.body.appendChild(confetti);
+    setTimeout(()=>confetti.remove(),3000);
+}
+setInterval(createConfetti,150);
+
+// Balloons animation
+function createBalloon() {
+    const balloon = document.createElement('div');
+    balloon.className='balloon';
+    balloon.style.left=Math.random()*window.innerWidth+'px';
+    balloon.style.animationDuration=(Math.random()*5+5)+'s';
+    document.body.appendChild(balloon);
+    setTimeout(()=>balloon.remove(),10000);
+}
+setInterval(createBalloon,300);
+</script>
+</body>
+</html>

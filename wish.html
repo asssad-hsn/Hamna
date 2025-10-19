@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday!</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body {
+    margin: 0;
+    overflow-x: hidden;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+    animation: bgGradient 10s ease infinite alternate;
+}
+@keyframes bgGradient {
+    0% { background: linear-gradient(135deg,#ff9a9e,#fad0c4);}
+    50% { background: linear-gradient(135deg,#ffecd2,#fcb69f);}
+    100% { background: linear-gradient(135deg,#f6d365,#fda085);}
+}
+
+/* --- Picture Styling --- */
+.photo-frame {
+    margin-top: 20px; /* reduced space from top */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.photo-frame img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6),
+                0 0 30px rgba(255, 105, 97, 0.5);
+    animation: glow 3s ease-in-out infinite alternate;
+}
+@keyframes glow {
+    from { box-shadow: 0 0 15px #fff, 0 0 25px #ff6f61; }
+    to { box-shadow: 0 0 30px #fff, 0 0 50px #ff6f61; }
+}
+
+/* --- Wish Text and Captions --- */
+#wishContainer {
+    margin-top: 15px; /* reduced gap between image and text */
+    padding: 0 15px;
+}
+#wishText {
+    font-size: 40px;
+    color: #fff;
+    text-shadow: 2px 2px 15px #ff6f61;
+    margin-bottom: 10px;
+}
+.caption {
+    font-size: 22px;
+    color: #fff;
+    margin: 8px 0;
+    opacity: 0;
+    animation: fadeInCaption 2s forwards;
+}
+@keyframes fadeInCaption {
+    to {opacity: 1;}
+}
+
+/* --- Hearts Animation --- */
+.hearts {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: red;
+    transform: rotate(-45deg);
+    animation: float 3s infinite;
+}
+.hearts::before, .hearts::after {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: red;
+    border-radius: 50%;
+}
+.hearts::before { top: -9px; left: 0; }
+.hearts::after { left: 9px; top: 0; }
+
+@keyframes float {
+    0% { transform: translateY(0) rotate(-45deg); opacity: 1; }
+    100% { transform: translateY(-600px) rotate(-45deg); opacity: 0; }
+}
+
+/* --- Button Styling --- */
+button {
+    padding: 15px 35px;
+    font-size: 20px;
+    background: #fff;
+    color: #ff6f61;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-top: 25px;
+    animation: bounce 2s infinite;
+}
+@keyframes bounce {
+    0%,20%,50%,80%,100% { transform: translateY(0); }
+    40% { transform: translateY(-12px); }
+    60% { transform: translateY(-6px); }
+}
+button:hover {
+    background: #ff6f61;
+    color: #fff;
+    box-shadow: 0 0 15px #fff;
+}
+
+/* --- Responsive Design for Mobile --- */
+@media (max-width: 600px) {
+    .photo-frame img {
+        width: 130px;
+        height: 130px;
+    }
+    #wishText {
+        font-size: 30px;
+    }
+    .caption {
+        font-size: 18px;
+    }
+    button {
+        font-size: 18px;
+        padding: 12px 30px;
+    }
+}
+</style>
+</head>
+<body>
+
+    
+<!-- Picture at the Top Center -->
+<div class="photo-frame">
+    <img src="Hamna (2).jpg" alt="Birthday Person">
+</div>
+
+<!-- All text and button below -->
+<div id="wishContainer" class="container">
+    <h1 id="wishText"></h1>
+    <div id="captions">
+        <p class="caption">You make my heart smile every day ❤️</p>
+        <p class="caption">May your birthday be as beautiful as your soul 💖</p>
+        <p class="caption">Forever grateful to have you in my life 🌸</p>
+        <p class="caption">Love you to the moon and back 🌙✨</p>
+        <p class="caption">“Forever yours 💖”</p>
+    </div>
+    <button onclick="location.href='confetti.html'">Celebrate 🎈</button>
+</div>
+
+<script>
+// Typing effect for main wish
+const wishMessages = ["Happy Birthday 🎂💖"];
+let i = 0;
+function typeWriter() {
+    if(i < wishMessages[0].length){
+        document.getElementById("wishText").innerHTML += wishMessages[0].charAt(i);
+        i++;
+        setTimeout(typeWriter, 100);
+    }
+}
+typeWriter();
+
+// Hearts animation
+function createHeart(){
+    const heart=document.createElement('div');
+    heart.className='hearts';
+    heart.style.left=Math.random()*window.innerWidth+'px';
+    heart.style.animationDuration=(Math.random()*2+3)+'s';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),5000);
+}
+setInterval(createHeart,300);
+
+// Animate captions one by one
+const captions = document.querySelectorAll('.caption');
+let captionIndex = 0;
+function showCaptions(){
+    if(captionIndex < captions.length){
+        captions[captionIndex].style.opacity = 1;
+        captionIndex++;
+        setTimeout(showCaptions, 2000);
+    }
+}
+showCaptions();
+</script>
+</body>
+</html>
